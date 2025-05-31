@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 const QuestionCard = () => (
   <div className="p-6 text-white">
     <h2 className="text-xl font-bold mb-2">
@@ -42,10 +46,43 @@ const QuestionCard = () => (
   </div>
 );
 
+type VisibilityToggleProps = {
+  initiallyVisible?: boolean;
+  children: React.ReactNode;
+};
+
+const VisibilityToggle = ({
+  initiallyVisible = false,
+  children,
+}: VisibilityToggleProps) => {
+  const [show, setShow] = useState(initiallyVisible);
+
+  const handleButtonClick = () => setShow(!show);
+
+  return (
+    <div className="flex flex-col w-full items-center">
+      <button
+        onClick={handleButtonClick}
+        aria-expanded={show}
+        className="border px-4 py-2 rounded-sm bg-purple-800 border-purple-800 w-[80px] text-center m-2"
+      >
+        {show ? "Hide" : "Show"}
+      </button>
+
+      {show && <div>{children}</div>}
+    </div>
+  );
+};
+
 export default function Visibility() {
   return (
     <div className="w-full h-dvh bg-gray-800">
       <QuestionCard />
+      <div className="w-full flex justify-center mt-10">
+        <VisibilityToggle>
+          <p>This is some secret content you can toggle!</p>
+        </VisibilityToggle>
+      </div>
     </div>
   );
 }
