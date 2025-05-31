@@ -19,6 +19,7 @@ export default function Home() {
     <div className="flex justify-center items-center h-dvh bg-gray-800">
       <LinkButton href="/problem/1" title="Counter Component" />
       <LinkButton href="/problem/2" title="Visibility Toggle" />
+      <LinkButton href="/problem/3" title="Todo List" />
     </div>
   );
 }
