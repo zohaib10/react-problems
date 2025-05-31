@@ -1,14 +1,24 @@
 import Link from "next/link";
 
+type LinkButtonProps = {
+  href: string;
+  title: string;
+};
+
+const LinkButton = ({ href, title }: LinkButtonProps) => (
+  <Link
+    href={href}
+    className="border p-4 rounded-sm bg-pink-600 border-pink-600 w-[200px] text-center m-2"
+  >
+    {title}
+  </Link>
+);
+
 export default function Home() {
   return (
     <div className="flex justify-center items-center h-dvh bg-gray-800">
-      <Link
-        href="/problem/1"
-        className="border p-4 rounded-sm bg-pink-600 border-pink-600"
-      >
-        Counter Component
-      </Link>
+      <LinkButton href="/problem/1" title="Counter Component" />
+      <LinkButton href="/problem/2" title="Visibility Toggle" />
     </div>
   );
 }
