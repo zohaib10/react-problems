@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 const QuestionCard = () => (
   <div className=" p-6 text-white">
     <h2 className="text-xl font-bold mb-2 ">
@@ -33,10 +37,36 @@ const QuestionCard = () => (
   </div>
 );
 
+const Solution = () => {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div className="flex justify-between w-[300px]">
+      <button
+        onClick={() => setCount((c) => c - 1)}
+        className="border p-4 pt-2 pb-2 text-2xl rounded-md bg-purple-600 border-purple-600 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-purple-600"
+        disabled={!count}
+      >
+        -
+      </button>
+      <p className="text-2xl">{count}</p>{" "}
+      <button
+        onClick={() => setCount(count + 1)}
+        className="border p-4 pt-2 pb-2 text-2xl rounded-md bg-purple-600 border-purple-600"
+      >
+        +
+      </button>
+    </div>
+  );
+};
+
 export default function Counter() {
   return (
     <div className="w-full h-dvh bg-gray-800">
       <QuestionCard />
+      <div className="w-full flex justify-center mt-10">
+        <Solution />
+      </div>
     </div>
   );
 }
