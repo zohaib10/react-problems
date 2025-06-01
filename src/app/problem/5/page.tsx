@@ -1,3 +1,8 @@
+"use client";
+
+import { fetchUsers } from "@/api/fetchUsers";
+import { useEffect, useState } from "react";
+
 const QuestionCard = () => (
   <div className="p-6 text-white">
     <h2 className="text-xl font-bold mb-2">
@@ -47,10 +52,93 @@ const QuestionCard = () => (
   </div>
 );
 
+type User = {
+  name: string;
+  email: string;
+  id: string;
+};
+
+const UserList = () => {
+  const [users, setUsers] = useState<User[]>();
+  const [error, setError] = useState<boolean>();
+  const [loading, setLoading] = useState(false);
+  const [allUsers, setAllUsers] = useState<User[]>();
+
+  const getUsers = () => {
+    setLoading(true);
+    fetchUsers()
+      .then((data: User[]) => {
+        const newData = data.map(({ name, email, id }) => ({
+          name,
+          email,
+          id,
+        }));
+        setUsers(newData);
+        setAllUsers(newData);
+      })
+      .catch(() => setError(true))
+      .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <button onClick={getUsers}>Try again!</button>;
+  }
+
+  if (!allUsers || !users) {
+    return <p>No users found!</p>;
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value.toLowerCase();
+    const newUsers = allUsers.filter((user) =>
+      user.name.toLowerCase().includes(val)
+    );
+    setUsers(newUsers);
+  };
+
+  return (
+    <div className="w-[80%]">
+      <input
+        className="w-[240px] p-2 border rounded-md border-gray-400"
+        placeholder="Search User..."
+        onChange={handleChange}
+      />
+      <table className="border rounded-md w-full my-4">
+        <thead>
+          <tr className="border">
+            <th className="p-4 border">Name</th>
+            <th className="border">Email</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {users.map((user) => (
+            <tr key={user.email} className="text-center">
+              <td className="p-2 border">{user.name}</td>
+              <td className="border">{user.email}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
 export default function Question5() {
   return (
-    <div className="w-full h-dvh bg-gray-800">
+    <div className="w-full">
       <QuestionCard />
+      <div className="my-4 w-full flex justify-center">
+        <UserList />
+      </div>
     </div>
   );
 }
