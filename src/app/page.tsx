@@ -23,6 +23,7 @@ export default function Home() {
         <LinkButton href="/problem/3" title="Todo List" />
         <LinkButton href="/problem/4" title="Tabs" />
         <LinkButton href="/problem/5" title="Display Users" />
+        <LinkButton href="/problem/6" title="User Registration" />
       </div>
     </div>
   );
