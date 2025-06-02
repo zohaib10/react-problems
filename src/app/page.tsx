@@ -16,7 +16,7 @@ const LinkButton = ({ href, title }: LinkButtonProps) => (
 
 export default function Home() {
   return (
-    <div className="flex justify-center items-center h-dvh bg-gray-800">
+    <div className="flex justify-center items-center h-dvh">
       <div className="flex flex-wrap justify-around w-[80%]">
         <LinkButton href="/problem/1" title="Counter Component" />
         <LinkButton href="/problem/2" title="Visibility Toggle" />
