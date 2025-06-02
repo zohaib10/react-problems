@@ -24,6 +24,7 @@ export default function Home() {
         <LinkButton href="/problem/4" title="Tabs" />
         <LinkButton href="/problem/5" title="Display Users" />
         <LinkButton href="/problem/6" title="User Registration" />
+        <LinkButton href="/problem/7" title="Carousel" />
       </div>
     </div>
   );
